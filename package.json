@@ -10,11 +10,12 @@
     "build": "parcel build",
     "lint": "eslint",
     "check": "tsc --noEmit",
-    "ci": "yarn build && yarn check"
+    "ci": "yarn build && yarn check",
+    "semantic-release": "semantic-release --branches main"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kangangga/vue-laraver-echo.git"
+    "url": "git+https://github.com/kangangga/vue-laravel-echo.git"
   },
   "keywords": [
     "vue-laravel-echo",
@@ -31,9 +32,9 @@
   "author": "Angga Saputra <masangga.com@gmail.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/kangangga/vue-laraver-echo/issues"
+    "url": "https://github.com/kangangga/vue-laravel-echo/issues"
   },
-  "homepage": "https://github.com/kangangga/vue-laraver-echo#readme",
+  "homepage": "https://github.com/kangangga/vue-laravel-echo#readme",
   "devDependencies": {
     "@babel/types": "^7.17.0",
     "@parcel/packager-ts": "2.4.0",
@@ -42,6 +43,7 @@
     "@parcel/transformer-vue": "2.4.0",
     "@types/node": "^17.0.23",
     "parcel": "^2.4.0",
+    "semantic-release": "^19.0.2",
     "typescript": ">=3.0.0",
     "vue": "^3.2.31"
   },

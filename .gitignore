@@ -10,3 +10,4 @@ RELEASE_NOTE*.md
 example/
 
 coverage/
+yarn-error.log
