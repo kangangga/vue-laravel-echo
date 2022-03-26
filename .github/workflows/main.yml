@@ -17,8 +17,7 @@ jobs:
           node-version: "16.x"
       - run: yarn
       - run: yarn ci
-      - run: yarn run semantic-release
-      - run: yarn publish
+      - run: yarn semantic-release
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
