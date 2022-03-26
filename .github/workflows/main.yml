@@ -1,32 +1,18 @@
-name: Release npm package
-
+name: Publish Package to npmjs
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: "*"
-
 jobs:
-  testing:
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        node-version: [14.x]
-        os: [ubuntu-latest]
-
-  publish:
+  build:
     runs-on: ubuntu-latest
-    if: ${{ github.ref == 'refs/heads/master' }}
-    needs: [testing]
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+      - uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: "16.x"
+          registry-url: "https://registry.npmjs.org"
       - run: yarn ci
       - run: yarn run semantic-release
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
