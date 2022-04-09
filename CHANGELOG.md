@@ -1,3 +1,10 @@
+## [1.2.10](https://github.com/kangangga/vue-laravel-echo/compare/v1.2.9...v1.2.10) (2022-04-09)
+
+
+### Bug Fixes
+
+* pub ([a29296d](https://github.com/kangangga/vue-laravel-echo/commit/a29296d61a0f1c92cbd6442c43f177736956f2b7))
+
 ## [1.2.9](https://github.com/kangangga/vue-laravel-echo/compare/v1.2.8...v1.2.9) (2022-04-09)
 
 
