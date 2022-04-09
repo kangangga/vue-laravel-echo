@@ -1,50 +1,67 @@
-import { isFunction } from "./utils";
+import Echo from "laravel-echo";
+import { camelCase } from "./utils";
+import globalEmitter from "./globalEmitter";
 
-export default (echo) => ({
-  created() {
-    const exluceEventMethods = ["presence", "private"];
-    this.$echo = echo;
-    this.$channel = this.$channel || {};
-    this.$bindings = this.$bindings || {};
-    this.$options.laravelEcho = this.$options.laravelEcho || {};
-    const { laravelEcho } = this.$options;
+export default class VueEcho extends Echo {
+  events = [];
+  options = {};
 
-    const registerEvent = (events, channel) => {
-      Object.keys(events).forEach(function (event) {
-        if (!exluceEventMethods.includes(event)) {
-          this.$bindings[channel] = [];
-          this.$channel[channel].listen(event, (payload) => {
-            if (isFunction(events[event])) {
-              events[event].bind(this)(payload);
-            }
-          });
-          this.$bindings[channel].push(event);
-        }
-      }, this);
-    };
+  constructor(options) {
+    super(options);
+    this.options = options;
 
-    Object.keys(laravelEcho).forEach((channel) => {
-      if (channel.startsWith("private:")) {
-        this.$channel[channel] = echo.private(channel.replace("private:", ""));
-      } else if (channel.startsWith("presence:")) {
-        this.$channel[channel] = echo.join(channel.replace("presence:", ""));
-      } else {
-        this.$channel[channel] = echo.channel(channel);
-      }
-
-      echo[channel] = this.$channel[channel];
-      registerEvent(laravelEcho[channel], channel);
+    this.connector.pusher.connection.bind("error", (asd) => {
+      console.log(asd);
     });
-  },
-  beforeDestroy() {
-    for (const channel in this.$bindings) {
-      if (Object.hasOwnProperty.call(this.$bindings, channel)) {
-        let ch = echo.private(channel);
-        this.$bindings[channel].forEach((listener) => {
-          ch.stopListening(listener);
-        });
-      }
+
+    this.setEvent();
+  }
+
+  on(eventName, callback) {
+    if (this.options.broadcaster == "pusher") {
+      this.connector.pusher.connection.bind(eventName, callback);
+    } else if (this.options.broadcaster == "socket.io") {
+      this.connector.socket.on(eventName, callback);
+    } else if (this.options.broadcaster == "null") {
+      globalEmitter.$on(eventName, callback);
+    } else if (typeof this.opti$s.broadcaster == "function") {
+      globalEmitter.$on(eventName, callback);
     }
-  },
-  destroy() {},
-});
+  }
+
+  setEvent(events = []) {
+    if (this.options.broadcaster == "pusher") {
+      this.events = [
+        "error",
+        "failed",
+        "connected",
+        "connecting",
+        "initialized",
+        "unavailable",
+        "state_change",
+      ];
+      this.bindingEvent(this.connector.pusher.connection.bind);
+    } else if (this.options.broadcaster == "socket.io") {
+      this.events = [
+        "connect",
+        "reconnect",
+        "connection",
+        "disconnect",
+        "connect_error",
+        "reconnect_attempt",
+      ];
+      this.bindingEvent(this.connector.socket.on);
+    }
+  }
+
+  bindingEvent(instance) {
+    this.events.forEach((event) => {
+      let method = camelCase(["on", event]);
+      this[method] = (callback) => {
+        instance(event, (data) => {
+          callback(data);
+        });
+      };
+    });
+  }
+}

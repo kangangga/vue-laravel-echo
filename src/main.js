@@ -1,26 +1,22 @@
 import "pusher-js";
-import Echo from "laravel-echo";
 import VueEcho from "./VueEcho";
-import createBindingEvent from "./createBindingEvent";
+import createMixin from "./createMixin";
+
+const defaultOptions = {
+  broadcaster: "pusher",
+};
 
 function install(app, options) {
   const auth = options.auth || {};
   const { headers } = auth;
-  const echo = new Echo({
+  const echo = new VueEcho({
+    ...defaultOptions,
     ...options,
-    auth: {
-      headers: {
-        "X-APP-ID": options.key,
-        ...headers,
-      },
-    },
   });
 
-  // app.config.globalProperties.$echo = echo;
-
-  createBindingEvent(echo, options);
-
-  app.mixin(VueEcho(echo));
+  app.mixin(createMixin(echo));
 }
+
+export * as utils from "./utils";
 
 export default { install };
