@@ -1,6 +1,6 @@
 {
   "name": "@kangangga/vue-laravel-echo",
-  "version": "0.0.0-development",
+  "version": "0.0.0-semantic-release",
   "description": "Vue Laravel Echo library",
   "source": "src/main.js",
   "main": "dist/index.js",
