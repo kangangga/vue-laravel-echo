@@ -31,37 +31,38 @@ const $43688df4eec40380$export$bef1f36f5486a6a3 = (...params)=>{};
 
 var $14953074e7d024e2$export$2e2bcd8739ae039 = (echo)=>({
         created () {
-            const bindings = {};
             const exluceEventMethods = [
                 "presence",
                 "private"
             ];
+            this.$echo = echo;
             this.$channel = this.$channel || {};
-            this.$options.sockets = this.$options.sockets || {};
-            const { sockets: sockets  } = this.$options;
+            this.$bindings = this.$bindings || {};
+            this.$options.laravelEcho = this.$options.laravelEcho || {};
+            const { laravelEcho: laravelEcho  } = this.$options;
             const registerEvent = (events, channel)=>{
                 Object.keys(events).forEach(function(event) {
                     if (!exluceEventMethods.includes(event)) {
-                        bindings[channel] = [];
+                        this.$bindings[channel] = [];
                         this.$channel[channel].listen(event, (payload)=>{
                             if ($43688df4eec40380$export$f6e2535fb5126e54(events[event])) events[event].bind(this)(payload);
                         });
-                        bindings[channel].push(event);
+                        this.$bindings[channel].push(event);
                     }
                 }, this);
             };
-            Object.keys(sockets).forEach((channel)=>{
+            Object.keys(laravelEcho).forEach((channel)=>{
                 if (channel.startsWith("private:")) this.$channel[channel] = echo.private(channel.replace("private:", ""));
                 else if (channel.startsWith("presence:")) this.$channel[channel] = echo.join(channel.replace("presence:", ""));
                 else this.$channel[channel] = echo.channel(channel);
                 echo[channel] = this.$channel[channel];
-                registerEvent(sockets[channel], channel);
+                registerEvent(laravelEcho[channel], channel);
             });
         },
         beforeDestroy () {
-            for(const channel in bindings)if (Object.hasOwnProperty.call(bindings, channel)) {
+            for(const channel in this.$bindings)if (Object.hasOwnProperty.call(this.$bindings, channel)) {
                 let ch = echo.private(channel);
-                bindings[channel].forEach((listener)=>{
+                this.$bindings[channel].forEach((listener)=>{
                     ch.stopListening(listener);
                 });
             }
@@ -131,7 +132,7 @@ function $a118670bf7476f3e$var$install(app, options) {
             }
         }
     });
-    app.config.globalProperties.$echo = echo;
+    // app.config.globalProperties.$echo = echo;
     $bf5c5007362aee1e$export$2e2bcd8739ae039(echo, options);
     app.mixin($14953074e7d024e2$export$2e2bcd8739ae039(echo));
 }
