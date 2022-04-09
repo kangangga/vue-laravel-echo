@@ -16,7 +16,7 @@ function install(app, options) {
     },
   });
 
-  app.config.globalProperties.$echo = echo;
+  // app.config.globalProperties.$echo = echo;
 
   createBindingEvent(echo, options);
 
