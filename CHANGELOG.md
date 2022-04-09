@@ -1,3 +1,10 @@
+## [1.2.5](https://github.com/kangangga/vue-laravel-echo/compare/v1.2.4...v1.2.5) (2022-04-09)
+
+
+### Bug Fixes
+
+* release ([147a938](https://github.com/kangangga/vue-laravel-echo/commit/147a93807ed72ab3a0e82bc4f3506a8bacdee731))
+
 ## [1.2.4](https://github.com/kangangga/vue-laravel-echo/compare/v1.2.3...v1.2.4) (2022-04-09)
 
 
