@@ -24,13 +24,6 @@ module.exports = {
       },
     ],
     [
-      "@semantic-release/npm",
-      {
-        npmPublish: true,
-        tarballDir: "dist",
-      },
-    ],
-    [
       "@semantic-release/git",
       {
         assets: ["CHANGELOG.md", "dist/**"],
