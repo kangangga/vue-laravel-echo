@@ -1,13 +1,17 @@
 {
   "name": "@kangangga/vue-laravel-echo",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "Vue Laravel Echo library",
   "source": "src/main.js",
   "main": "dist/index.js",
   "module": "dist/module.js",
   "publishConfig": {
+    "access": "public",
     "registry": "https://npm.pkg.github.com/"
   },
+  "files": [
+    "dist/"
+  ],
   "scripts": {
     "dev": "parcel example/index.html",
     "build": "parcel build",
