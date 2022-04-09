@@ -1,19 +1,12 @@
 import Echo from "laravel-echo";
-import { camelCase } from "./utils";
+import camelCase from "camelcase";
 import globalEmitter from "./globalEmitter";
 
 export default class VueEcho extends Echo {
-  events = [];
-  options = {};
-
   constructor(options) {
     super(options);
+    this.events = [];
     this.options = options;
-
-    this.connector.pusher.connection.bind("error", (asd) => {
-      console.log(asd);
-    });
-
     this.setEvent();
   }
 

@@ -17,6 +17,4 @@ function install(app, options) {
   app.mixin(createMixin(echo));
 }
 
-export * as utils from "./utils";
-
 export default { install };

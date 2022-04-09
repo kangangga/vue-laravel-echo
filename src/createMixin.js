@@ -47,10 +47,10 @@ export default (echo) => ({
     }
   },
   destroy() {
-    // for (const channel in this.$bindings) {
-    //   if (Object.hasOwnProperty.call(this.$bindings, channel)) {
-    //     delete this.$bindings[channel];
-    //   }
-    // }
+    for (const channel in this.$bindings) {
+      if (Object.hasOwnProperty.call(this.$bindings, channel)) {
+        delete this.$bindings[channel];
+      }
+    }
   },
 });

@@ -1,5 +1,3 @@
-export * as camelCase from "camelcase";
-
 export const isFunction = (obj) => typeof obj === "function";
 
 export const isString = (value) => typeof value === "string";
