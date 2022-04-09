@@ -5,6 +5,9 @@
   "source": "src/main.js",
   "main": "dist/index.js",
   "module": "dist/module.js",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "scripts": {
     "dev": "parcel example/index.html",
     "build": "parcel build",
@@ -50,6 +53,6 @@
   "dependencies": {
     "camelcase": "^6.3.0",
     "laravel-echo": "^1.11.4",
-    "pusher-js": "^7.0.6"
+    "pusher-js": "^4.3.1"
   }
 }
