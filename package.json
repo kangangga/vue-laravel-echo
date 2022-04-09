@@ -23,7 +23,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kangangga/vue-laravel-echo.git"
+    "url": "https://github.com/kangangga/vue-laravel-echo.git"
   },
   "keywords": [
     "vue-laravel-echo",

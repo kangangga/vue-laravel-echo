@@ -1,4 +1,6 @@
 module.exports = {
+  repository_url: "https://github.com/kangangga/vue-laravel-echo.git",
+  tag_format: "v${version}",
   branches: [
     "main",
     {
