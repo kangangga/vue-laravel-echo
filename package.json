@@ -7,8 +7,7 @@
   "module": "dist/module.js",
   "publishConfig": {
     "tag": "latest",
-    "access": "public",
-    "@kangangga:registry": "https://npm.pkg.github.com"
+    "access": "public"
   },
   "files": [
     "dist/"
